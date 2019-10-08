@@ -15,28 +15,40 @@ async function start() {
   let secretNumber = await ask("What is your secret number?\nI won't peek, I promise...\n");
   console.log('You entered: ' + secretNumber);
 
-  function compGuess(max) {
-    return (Math.floor(Math.random() * Math.floor(max)))
+  function compGuess(max, min) {
+
+    return (min) + Math.floor(Math.random() * (max - min))
 
   }
   game()
   async function game() {
-    let turns = 0
-    console.log("Okay computer give it your best shot!\nGuess a number between 1 and 100!")
-    let guess = compGuess(100)
-    console.log("You guessed " + guess);
+    let max = 100
+    let min = 1
+    let turns = 0;
 
-    if (guess > secretNumber) {
-      console.log("Too High! Guess again!")
-    } else if (guess < secretNumber) {
-      console.log("Too low! Guess again!")
-    } else {
-      console.log("Great job you only took" + turns++ + "tries!")
+    console.log("Okay computer give it your best shot!\nGuess a number between 1 and 100!")
+    let guess = compGuess(max, min)
+    let playerAnswer = await ask("Is your number " + guess + "?")
+
+    while (playerAnswer !== "yes") {
+      guess = compGuess(max, min)
+      playerAnswer = await ask("Is your number " + guess + "?")
+
+      turns = turns + 1
+      if (guess > secretNumber) {
+        console.log("Too High! Guess again!")
+        max = guess
+      } else if (guess < secretNumber) {
+        console.log("Too low! Guess again!")
+        min = guess + 1
+      } else {
+        console.log("Great job it only took you " + turns + " tries!")
+        process.exit()
+      }
     }
   }
+
 }
 
-
-process.exit();
 
 
