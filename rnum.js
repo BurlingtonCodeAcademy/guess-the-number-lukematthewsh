@@ -9,18 +9,21 @@ var output
 var guessed = false
 
 //do/while loop, while condition is based on if the user NOT guessing the number (e.g. guessed == false)
-do {
-guess = prompt("Think of a number between 1 and 100, what is your number?");
+pizza()
+async function pizza(){
+guess = await ask("Think of a number between 1 and 100, what is your number?");
 if (guess > number) {
-  alert("You guessed too high, think smaller");
+  console.log("You guessed too high, think smaller");
   guessed = false
 } else if (guess < number) {
-  alert("You guessed too low, think bigger");
+  console.log("You guessed too low, think bigger");
   guessed = false
 } else {
-  alert("You guessed the right number!")
-  guessed = true
+  console.log("You guessed the right number!")
+ 
 }
 }
-while (guessed === false)
+while (guessed === false){
+
+}
 
