@@ -44,38 +44,51 @@ async function start() {
       } else {
         console.log("\nGreat job it only took you " + turns + " tries!")
         cpuTest()
+
+
+
+        async function cpuTest() {
+
+          function cpuNum(max) {
+            return Math.floor(Math.random() * Math.floor(max))
+          }
+
+          console.log("\nNow that I guessed your number try to guess mine!")
+          let cpuSecretNumber = cpuNum(100)
+          let tries = 0
+          let myGuess = await ask("Guess a number between 1 and 100");
+          console.log("Your guess is " + myGuess)
+          while (myGuess !== cpuSecretNumber) {
+            myGuess = await ask("Guess another number! ")
+            tries = tries + 1
+            if (myGuess > cpuSecretNumber) {
+              console.log("\nToo High guess again! ");
+            } else if (myGuess < cpuSecretNumber) {
+              console.log("\nToo low guess again! ");
+            } else {
+              console.log("\nCongrats you got my number in " + tries + " tries")
+              if (tries < turns) {
+                console.log("Damn I lost :(")
+
+                if (tries > turns) {
+                  console.log("Ha, I beat you :)")
+                  if (tries === turns) {
+                    console.log("Ah it looks to be a draw :|")
+                    
+                  }
+                }
+              }
+            }
+            
+
+          }
+        }
+
       }
+
     }
   }
-
-
-  async function cpuTest() {
-
-    function cpuNum(max) {
-      return Math.floor(Math.random() * Math.floor(max))
-    }
-
-    console.log("\nNow that I guessed your number try to guess mine!")
-    let cpuSecretNumber = cpuNum(100)
-    let tries = 0
-    let myGuess = await ask("Guess a number between 1 and 100");
-    console.log("Your guess is " + myGuess)
-    while (myGuess !== cpuSecretNumber) {
-      myGuess = await ask("Guess another number! ")
-      tries = tries + 1
-      if (myGuess > cpuSecretNumber) {
-        console.log("Too High guess again! ");
-      } else if (myGuess < cpuSecretNumber) {
-        console.log("Too low guess again! ");
-      } else {
-        console.log("Congrats you got my number in " + tries + " tries")
-        process.exit()
-      }
-    }
-  }
-
-
+  
 }
-
 
 
