@@ -7,29 +7,12 @@ function ask(questionText) {
   });
 }
 
-cpuTest()
+start();
 
-async function cpuTest() {
-
-    function cpuNum(max) {
-    return Math.floor(Math.random() * Math.floor(max))
-    }
-    
-    console.log("Now that I guessed your number try to guess mine!")
-    let cpuSecretNumber = cpuNum(100)
-    let turns = 0
-    let myGuess = await ask("Guess a number between 1 and 100");
-        console.log("Your guess is " +myGuess)
-    while (myGuess !== cpuSecretNumber){
-        myGuess = await ask("Guess another number! ")
-        turns = turns + 1
-        if (myGuess > cpuSecretNumber) {
-            console.log("Too High guess again! ");
-        } else if (myGuess < cpuSecretNumber) {
-            console.log("Too low guess again! ");
-        } else {
-            console.log("Congrats you got my number in " + turns + " tries")
-            process.exit()
-        }
-    }
+async function start() {
+  console.log("Let's play a game where you (human) make up a number and I (computer) try to guess it.")
+  let secretNumber = await ask("What is your secret number?\nI won't peek, I promise...\n");
+  console.log('You entered: ' + secretNumber);
+  // Now try and complete the program.
+  process.exit();
 }
